@@ -17,19 +17,29 @@ extern keymap_config_t keymap_config;
 #define KC_ KC_NO
 #define KC______ KC_TRNS
 
-// Layer access aliases
-#define KC_RAISE LT(_RAISE, KC_SPACE)
-#define KC_LOWER LT(_LOWER, KC_ENTER)
+// Layer access aliases / thumb keys
+#define KC_RAISE MO(_RAISE) //LT(_RAISE, KC_SPACE)
+#define KC_LOWER MO(_LOWER) //LT(_LOWER, KC_ENTER)
 #define KC_FRONT MO(_FRONT)
+#define KC_THLSH MT(MOD_LSFT, KC_SPACE)
+#define KC_THRSH MT(MOD_RSFT, KC_ENTER)
+#define KC_SUPER KC_LGUI
+#define KC_SSUPR S(KC_LGUI)
 
 // Character aliases
-#define KC_CRRNC RALT(KC_3)
-#define KC_LPREN KC_SCOLON
-#define KC_RPREN KC_QUOTE
-#define KC_LBRCE S(KC_SCOLON)
-#define KC_RBRCE S(KC_QUOTE)
-#define KC_LBRKT RALT(KC_SCOLON)
-#define KC_RBRKT RALT(KC_QUOTE)
+#define KC_CRRNC RALT(KC_3)             // € £
+#define KC_LPREN KC_SCOLON              // (
+#define KC_RPREN KC_QUOTE               // )
+#define KC_LBRCE S(KC_SCOLON)           // {
+#define KC_RBRCE S(KC_QUOTE)            // }
+#define KC_LBRKT RALT(KC_SCOLON)        // [
+#define KC_RBRKT RALT(KC_QUOTE)         // ]
+#define KC_LANGL KC_NONUS_BSLASH        // <
+#define KC_RANGL S(KC_NONUS_BSLASH)     // >
+#define KC_BAR RALT(KC_NONUS_BSLASH)    // |
+#define KC_BKTCK RALT(KC_GRAVE)         // `
+#define KC_AUMLT RALT(KC_A)             // ä Ä
+#define KC_OUMLT RALT(KC_O)             // ö Ö
 
 // Reset alias
 #define KC_RESET RESET
@@ -56,10 +66,14 @@ extern keymap_config_t keymap_config;
 #define KC_M_BCK LCAG(KC_MEDIA_PREV_TRACK)
 #define KC_M_FRW LCAG(KC_MEDIA_NEXT_TRACK)
 
+// Key combo aliases
+#define KC_CTINS RCTL(KC_INS)           // Copy
+#define KC_SHINS RSFT(KC_INS)           // Paste
+#define KC_PRVTB LCTL(LSFT(KC_TAB))     // Previous tab
 
 // Custom keycodes
 enum custom_keycodes {
-    // Macros
+    // Top row macros
     KC_MC_01 = SAFE_RANGE,
     KC_MC_02,
     KC_MC_03,
@@ -71,7 +85,11 @@ enum custom_keycodes {
     KC_MC_09,
     KC_MC_10,
     KC_MC_11,
-    KC_MC_12
+    KC_MC_12,
+    
+    // Other macros
+    KC_ENDER,
+    KC_CTQTB
 };
 
 
@@ -86,7 +104,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                 
                 return false;
             }
-            case KC_MC_08: {
+            case KC_ENDER: {
+                SEND_STRING(SS_TAP(X_END));
+                SEND_STRING(SS_TAP(X_ENTER));
+                
+                return false;
+            }
+            case KC_CTQTB: {
                 SEND_STRING(SS_LCTRL("q"));
                 SEND_STRING(SS_LCTRL(SS_TAP(X_TAB)));
                 
@@ -103,57 +127,57 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // TODO: Dead diaeresis (with a leader key? IDK)
     [_QWERTY] = LAYOUT_kc(
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
-        GESC ,   1  ,   2  ,   3  ,   4  ,   5  ,   6  ,           7  ,   8  ,   9  ,   0  , MINUS, EQUAL, GRAVE,
+         ESC ,   1  ,   2  ,   3  ,   4  ,   5  , GRAVE,         MINUS,   6  ,   7  ,   8  ,   9  ,   0  , BSPC ,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
-         TAB ,   Q  ,   W  ,   E  ,   R  ,   T  , SPACE,         BSPC ,   Y  ,   U  ,   I  ,   O  ,   P  , RBRC ,
+         TAB ,   Q  ,   W  ,   E  ,   R  ,   T  , RBRC ,         EQUAL,   Y  ,   U  ,   I  ,   O  ,   P  ,  DEL ,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
-        LGUI ,   A  ,   S  ,   D  ,   F  ,   G  , SPACE,         ENTER,   H  ,   J  ,   K  ,   L  , BSLS , LBRC ,
+        SUPER,   A  ,   S  ,   D  ,   F  ,   G  , LBRC ,          DOT ,   H  ,   J  ,   K  ,   L  , BSLS , ENTER,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
-        LSFT ,   Z  ,   X  ,   C  ,   V  ,   B  , SPACE,              ,   N  ,   M  , COMMA,  DOT , SLASH, RSFT ,
+        LSFT ,   Z  ,   X  ,   C  ,   V  ,   B  , ENTER,         COMMA,   N  ,   M  , HOME ,  END ,  UP  , RSFT ,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
-         UP  , DOWN ,      , LCTRL, LSFT , LALT , RAISE,         LOWER, RCTRL, RSFT , RALT ,      , LEFT , RIGHT
+        LCTRL, RALT , LALT , LCTRL, SSUPR, RAISE, SPACE,         RSFT , LOWER, LALT , RCTRL, LEFT , DOWN , RIGHT
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
     ),
     
     [_RAISE] = LAYOUT_kc(
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
-         ESC ,  F1  ,  F2  ,  F3  ,  F4  ,  F5  ,  F6  ,          F7  ,  F8  ,  F9  ,  F10 ,  F11 ,  F12 ,      ,
+         ESC ,  F1  ,  F2  ,  F3  ,  F4  ,  F5  ,      ,         PSCR ,  F6  ,  F7  ,  F8  ,  F9  ,  F10 ,  F11 ,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
-             ,      ,      ,      ,      ,      ,      ,         PSCR , PGUP , HOME ,  UP  ,  END ,      ,      ,
+        PRVTB, CTQTB,      ,      ,      ,      ,      ,         SLCK , PGUP , HOME ,  UP  ,  END ,      ,  F12 ,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
-        _____,      ,      ,      ,      ,      ,      ,         PAUSE, PGDN , LEFT , DOWN , RIGHT,      ,      ,
+        _____,      ,      ,      ,      ,      ,      ,         PAUSE, PGDN , LEFT , DOWN , RIGHT,      , ENDER,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
-        _____,      ,      ,      ,      ,      ,      ,          INS , SLCK ,      ,      ,      ,      , _____,
+        _____,      ,      , CTINS, SHINS,      ,  INS ,              ,      ,      ,      ,      , PGUP , _____,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
-        PGUP , PGDN ,      , _____, _____, _____,      ,         FRONT, _____, _____, _____,      , HOME ,  END
+        _____, _____, _____, _____, _____,      , _____,         _____, FRONT, _____, _____, HOME , PGDN ,  END
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
     ),
     
     [_LOWER] = LAYOUT_kc(
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
-             , MC_01, MC_02, MC_03, MC_04, MC_05, MC_06,         MC_07, MC_08, MC_09, MC_10, MC_11, MC_12,      ,
+             , MC_01, MC_02, MC_03, MC_04, MC_05,      ,              , MC_06, MC_07, MC_08, MC_09, MC_10,      ,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
-             ,      ,      , CRRNC,      ,      ,      ,          DEL ,      , LPREN, RPREN,      ,      ,      ,
+             ,      ,      , CRRNC,      ,      ,  BAR ,          BAR , LPREN, RPREN,      , OUMLT,      ,      ,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
-        _____,      ,      ,      ,      ,      ,      ,              ,      , LBRCE, RBRCE,      ,      ,      ,
+        _____, AUMLT,      ,      ,      ,      ,      ,              , LBRCE, RBRCE, LANGL, RANGL, BKTCK,      ,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
-        _____,      ,      ,      ,      ,      ,      ,              ,      , LBRKT, RBRKT,      ,      , _____,
+        _____,      ,      ,      ,      ,      ,      ,              , LBRKT, RBRKT,      ,      ,      , _____,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
-             ,      ,      , _____, _____, _____, FRONT,              , _____, _____, _____,      ,      ,
+        _____, _____, _____, _____, _____, FRONT, _____,         _____,      , _____, _____,      ,      ,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
     ),
     
     [_FRONT] = LAYOUT_kc(
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
-             , FN_01, FN_02, FN_03, FN_04, FN_05, FN_06,         FN_07, FN_08, FN_09, FN_10, FN_11, FN_12, ACL0 ,
+             , FN_01, FN_02, FN_03, FN_04, FN_05,      ,              , FN_06, FN_07, FN_08, FN_09, FN_10, ACL0 ,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
-             ,      , M_PRV, M_SEL, M_NXT,      , VOLU ,         BTN4 , WH_U ,      , MS_U ,      , BTN1 , ACL1 ,
+             ,      , M_PRV, M_SEL, M_NXT,      , VOLU ,         BTN4 , WH_U , WH_L , MS_U , WH_R , BTN1 , ACL1 ,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
         _____,      , M_BCK, M_PLY, M_FRW,      , VOLD ,         BTN5 , WH_D , MS_L , MS_D , MS_R , BTN2 , ACL2 ,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
-        _____,      ,      ,      ,      ,      , MUTE ,              ,      , WH_L ,      , WH_R , BTN3 , _____,
+        _____,      ,      ,      ,      ,      , MUTE ,              ,      ,      ,      ,      , BTN3 , _____,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
-             ,      ,      , _____, _____, _____,      ,              , _____, _____, _____,      ,      ,
+        _____, _____, _____, _____, _____,      , _____,         _____,      , _____, _____,      ,      ,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
     )
 };
