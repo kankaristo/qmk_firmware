@@ -45,6 +45,7 @@ extern keymap_config_t keymap_config;
 #define KC_RESET RESET
 
 // Script aliases
+#define KC_FN_00 HYPR(KC_ESC)
 #define KC_FN_01 HYPR(KC_F1)
 #define KC_FN_02 HYPR(KC_F2)
 #define KC_FN_03 HYPR(KC_F3)
@@ -141,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     
     [_RAISE] = LAYOUT_kc(
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
-         ESC ,  F1  ,  F2  ,  F3  ,  F4  ,  F5  ,      ,         PSCR ,  F6  ,  F7  ,  F8  ,  F9  ,  F10 ,  F11 ,
+        FN_00,  F1  ,  F2  ,  F3  ,  F4  ,  F5  ,      ,         PSCR ,  F6  ,  F7  ,  F8  ,  F9  ,  F10 ,  F11 ,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
         PRVTB, CTQTB, M_PRV, M_SEL, M_NXT,      , VOLU ,         SLCK , PGUP , HOME ,  UP  ,  END ,      ,  F12 ,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
@@ -169,7 +170,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     
     [_FRONT] = LAYOUT_kc(
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
-             , FN_01, FN_02, FN_03, FN_04, FN_05,      ,              , FN_06, FN_07, FN_08, FN_09, FN_10, ACL0 ,
+        FN_00, FN_01, FN_02, FN_03, FN_04, FN_05,      ,              , FN_06, FN_07, FN_08, FN_09, FN_10, ACL0 ,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
              ,      , M_PRV, M_SEL, M_NXT,      , VOLU ,         BTN4 , WH_U , WH_L , MS_U , WH_R , BTN1 , ACL1 ,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
