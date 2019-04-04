@@ -24,7 +24,7 @@ extern keymap_config_t keymap_config;
 #define KC_THLSH MT(MOD_LSFT, KC_SPACE)
 #define KC_THRSH MT(MOD_RSFT, KC_ENTER)
 #define KC_SUPER KC_LGUI
-#define KC_SSUPR S(KC_LGUI)
+#define KC_SSUPR MT(KC_LGUI, S(KC_LGUI))
 
 // Character aliases
 #define KC_CRRNC RALT(KC_3)             // € £
