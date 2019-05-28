@@ -89,8 +89,9 @@ enum custom_keycodes {
     KC_MC_12,
     
     // Other macros
-    KC_ENDER,
     KC_CTQTB,
+    KC_ENDER,
+    KC_TMXCP,
     
     // Shift-Super key
     KC_SSUPR
@@ -134,20 +135,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         // Handle other keys
         
         switch(keycode) {
-            case KC_MC_07: {
-                SEND_STRING("790");
+            case KC_CTQTB: {
+                // Ctrl+Q Ctrl+Tab
+                SEND_STRING(SS_LCTRL("q"));
+                SEND_STRING(SS_LCTRL(SS_TAP(X_TAB)));
                 
                 return false;
             }
             case KC_ENDER: {
+                // End Enter
                 SEND_STRING(SS_TAP(X_END));
                 SEND_STRING(SS_TAP(X_ENTER));
                 
                 return false;
             }
-            case KC_CTQTB: {
-                SEND_STRING(SS_LCTRL("q"));
-                SEND_STRING(SS_LCTRL(SS_TAP(X_TAB)));
+            case KC_TMXCP: {
+                // Ctrl+B [
+                SEND_STRING(SS_LCTRL("b"));
+                SEND_STRING(SS_RALT(":"));
                 
                 return false;
             }
@@ -197,7 +202,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
         _____,      , M_BCK, M_PLY, M_FRW,      , VOLD ,         PAUSE, PGDN , LEFT , DOWN , RIGHT,      , ENDER,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
-        _____,      ,      , CTINS, SHINS,      , MUTE ,         INS  ,      ,      ,      ,      , PGUP , _____,
+        _____,      ,      , CTINS, SHINS, TMXCP, MUTE ,         INS  ,      ,      ,      ,      , PGUP , _____,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
         _____, _____, _____, _____, _____,      , _____,         _____, FRONT, _____, _____, HOME , PGDN , END
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
