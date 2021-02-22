@@ -9,7 +9,9 @@
 #define BASE 0
 
 enum custom_keycodes {
-  VRSN = SAFE_RANGE, // can always be here
+  PLACEHOLDER = SAFE_RANGE, // can always be here
+  EPRM,
+  VRSN,
   KC_MAKE,
   KC_RESET,
   NEWPLACEHOLDER  //use "NEWPLACEHOLDER for keymap specific codes

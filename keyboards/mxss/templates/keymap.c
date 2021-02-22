@@ -16,6 +16,9 @@
 #include QMK_KEYBOARD_H
 #include "mxss_frontled.h"
 
+// Helpful defines
+#define _______ KC_TRNS
+
 // Predefined colors for layers
 // Format: {hue, saturation}
 // {0, 0} to turn off the LED
