@@ -23,16 +23,16 @@ extern keymap_config_t keymap_config;
 
 // Character aliases
 #define KC_CRRNC RALT(KC_3)             // € £
-#define KC_LPREN KC_SCOLON              // (
-#define KC_RPREN KC_QUOTE               // )
-#define KC_LBRCE S(KC_SCOLON)           // {
-#define KC_RBRCE S(KC_QUOTE)            // }
-#define KC_LBRKT RALT(KC_SCOLON)        // [
-#define KC_RBRKT RALT(KC_QUOTE)         // ]
-#define KC_LANGL KC_NONUS_BSLASH        // <
-#define KC_RANGL S(KC_NONUS_BSLASH)     // >
-#define KC_BAR RALT(KC_NONUS_BSLASH)    // |
-#define KC_BKTCK RALT(KC_GRAVE)         // `
+#define KC_LPREN S(KC_8)                // (
+#define KC_RPREN S(KC_9)                // )
+#define KC_LBRCE RALT(KC_7)             // {
+#define KC_RBRCE RALT(KC_0)             // }
+#define KC_LBRKT RALT(KC_8)             // [
+#define KC_RBRKT RALT(KC_9)             // ]
+#define KC_LANGL RALT(S(KC_8))          // <
+#define KC_RANGL RALT(S(KC_9))          // >
+#define KC_BAR   RALT(KC_NONUS_BSLASH)  // |
+#define KC_BKTCK RALT(KC_NONUS_HASH)    // `
 #define KC_AUMLT RALT(KC_A)             // ä Ä
 #define KC_OUMLT RALT(KC_O)             // ö Ö
 
@@ -182,13 +182,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // TODO: Dead diaeresis (with a leader key? IDK)
     [_QWERTY] = LAYOUT_kc(
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
-        ESC  , 1    , 2    , 3    , 4    , 5    , GRAVE,         MINUS, 6    , 7    , 8    , 9    , 0    , BSPC ,
+        ESC  , 1    , 2    , 3    , 4    , 5    , QUOT ,         MINUS, 6    , 7    , 8    , 9    , 0    , BSPC ,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
-        TAB  , Q    , W    , E    , R    , T    , RBRC ,         EQUAL, Y    , U    , I    , O    , P    , DEL  ,
+        TAB  , Q    , W    , E    , R    , T    , RBRC ,         SLASH, Y    , U    , I    , O    , P    , DEL  ,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
-        SUPER, A    , S    , D    , F    , G    , LBRC ,         DOT  , H    , J    , K    , L    , BSLS , ENTER,
+        SUPER, A    , S    , D    , F    , G    , SCLN ,         DOT  , H    , J    , K    , L    , BSLS , ENTER,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
-        LSFT , Z    , X    , C    , V    , B    , ENTER,         COMMA, N    , M    , HOME , END  , UP   , RSFT ,
+        LSFT , Z    , X    , C    , V    , B    , NUBS ,         COMMA, N    , M    , HOME , END  , UP   , RSFT ,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
         LCTRL, RALT , LALT , LCTRL, SSUPR, RAISE, SPACE,         RSFT , LOWER, LALT , RCTRL, LEFT , DOWN , RIGHT
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
