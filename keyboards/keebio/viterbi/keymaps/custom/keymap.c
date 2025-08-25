@@ -94,7 +94,13 @@ enum custom_keycodes {
     KC_TMXCP,
     
     // Shift-Super key
-    KC_SSUPR
+    KC_SSUPR,
+    
+    // Email address macro
+    KC_EMAIL,
+    
+    // Install script macro
+    KC_INSTALL
 };
 
 // Timer for the Shift+Super key
@@ -153,6 +159,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                 // Ctrl+B [
                 SEND_STRING(SS_LCTRL("b"));
                 SEND_STRING(SS_RALT(":"));
+                
+                return false;
+            }
+            case KC_EMAIL: {
+                // sami@kankaristo.fi
+                SEND_STRING("sami@kankaristo.fi");
+                
+                return false;
+            }
+            case KC_INSTALL: {
+                // source <(curl -sL install.wrbl.fi)
+                SEND_STRING("source ");
+                SEND_STRING(SS_RALT("*"));
+                SEND_STRING("*curl /sL install.wrbl.fi(");
                 
                 return false;
             }
@@ -224,13 +244,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     
     [_FRONT] = LAYOUT_kc(
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
-        FN_00, FN_01, FN_02, FN_03, FN_04, FN_05,      ,              , FN_06, FN_07, FN_08, FN_09, FN_10, ACL0 ,
+        FN_00, FN_01, FN_02, FN_03, FN_04, FN_05, EMAIL,              , FN_06, FN_07, FN_08, FN_09, FN_10, ACL0 ,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
              ,      , M_PRV, M_SEL, M_NXT,      , VOLU ,         BTN4 , WH_U , WH_L , MS_U , WH_R , BTN1 , ACL1 ,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
         _____,      , M_BCK, M_PLY, M_FRW,      , VOLD ,         BTN5 , WH_D , MS_L , MS_D , MS_R , BTN2 , ACL2 ,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
-        _____,      ,      ,      ,      ,      , MUTE ,              ,      ,      ,      ,      , BTN3 , _____,
+        _____,INSTALL,     ,      ,      ,      , MUTE ,              ,      ,      ,      ,      , BTN3 , _____,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
         _____, _____, _____, _____, _____,      , _____,         _____,      , _____, _____,      ,      ,
         //---+------+------+------+------+------+------|        |-----+------+------+------+------+------+------|
